@@ -3,7 +3,11 @@ import SwiftUI
 struct AddView: View {
     // Ketika nilai @State berubah, SwiftUI akan otomatis merender ulang bagian view yang terkait dengan nilai tersebut.
     @State var textFieldTodo: String = ""
+    @EnvironmentObject var listViewModel: ListViewModel
     
+    // by using presentationMode, basically tell it to go back one in view hierarchy
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         ScrollView {
             VStack {
@@ -16,9 +20,8 @@ struct AddView: View {
                     // background applies the background color to the text view.
                     // cornerRadius is applied to the resulting view, creating rounded corners for both the text and the background.
                 
-                Button(action: {
-                    
-                }, label: {
+                Button(action: saveButtonPressed
+                       , label: {
                     Text("Save".uppercased())
                         .foregroundColor(.white)
                         .font(.headline)
@@ -32,10 +35,16 @@ struct AddView: View {
         }
         .navigationTitle("Add Todo 🖋️")
     }
+    
+    func saveButtonPressed() {
+        listViewModel.addItem(title: textFieldTodo)
+        presentationMode.wrappedValue.dismiss()
+    }
 }
 
 #Preview {
     NavigationView(){
         AddView()
     }
+    .environmentObject(ListViewModel())
 }

@@ -3,7 +3,8 @@ import SwiftUI
 
 struct ListView: View {
 /**
- Why using @State
+ Personal Note
+ Why using @State?
 1. Dynamic View Updates
   @State is a property wrapper that tells SwiftUI to monitor changes to the variable. When the value of a @State property changes, SwiftUI automatically re-renders any parts of the view that depend on that state.
  
@@ -12,19 +13,18 @@ struct ListView: View {
  
 3. Data Persistence During View Lifecycle:
   @State ensures that the variable persists its value as long as the view exists. Without @State, any changes to items would not persist or trigger updates to the view.
+ 
+ Cannot used @State in regular class, we can only use in view
 */
-    
-    @State var items: [ItemModel] = [
-        ItemModel(title: "Learn SwiftUI", isCompleted: false),
-        ItemModel(title: "Learn Swift", isCompleted: true),
-        ItemModel(title: "Learn MVVM", isCompleted: false)
-    ]
+    @EnvironmentObject var listViewModel: ListViewModel
     
     var body: some View {
         List {
-            ForEach(items) { item in
+            ForEach(listViewModel.items) { item in
                 ListRowView(title: item)
             }
+            .onDelete(perform: listViewModel.deleteItem)
+            .onMove(perform: listViewModel.moveItem)
         }
         .listStyle(PlainListStyle())
         .navigationTitle("Todo List 🔥")
@@ -39,4 +39,5 @@ struct ListView: View {
     NavigationView {
         ListView()
     }
+    .environmentObject(ListViewModel())
 }
