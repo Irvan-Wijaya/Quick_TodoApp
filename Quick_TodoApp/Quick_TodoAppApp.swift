@@ -19,6 +19,7 @@ struct Quick_TodoAppApp: App {
                 ListView()
             }
             .environmentObject(listViewModel)
+            .navigationViewStyle(StackNavigationViewStyle()) // because for iPad navigationView is different way, so need to declare this
         }
     }
 }

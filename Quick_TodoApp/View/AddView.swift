@@ -17,7 +17,7 @@ struct AddView: View {
                 TextField("Add task here...", text: $textFieldTodo)
                     .frame(height: 55)
                     .padding(.horizontal)
-                    .background(Color.gray.opacity(0.4))
+                    .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10) // there an order when declare views
                 // case: cornerRadius,
                     // background applies the background color to the text view.

@@ -47,9 +47,20 @@ struct ListView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        ListView()
+struct ListView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            NavigationView {
+                ListView()
+            }
+            .preferredColorScheme(.dark)
+            .environmentObject(ListViewModel())
+            
+            NavigationView {
+                ListView()
+            }
+            .preferredColorScheme(.light)
+            .environmentObject(ListViewModel())
+        }
     }
-    .environmentObject(ListViewModel())
 }
