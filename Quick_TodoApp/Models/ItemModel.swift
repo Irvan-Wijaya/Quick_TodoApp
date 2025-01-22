@@ -1,8 +1,27 @@
 import Foundation
 
+// because its immutable struct, we can only change through updateCompletion func, this approach to prevent accident with database
 struct ItemModel: Identifiable{
+    let id: String
     let title: String
     let isCompleted: Bool
-    let id: String = UUID().uuidString
     
+    // kenapa declare UUID nya di init supaya bisa di custom, untuk func add & update (u know what i mean)
+    init(id: String = UUID().uuidString, title: String, isCompleted: Bool) {
+        self.id = id
+        self.title = title
+        self.isCompleted = isCompleted
+    }
+    
+    func updateCompletion() -> ItemModel {
+        return ItemModel(id: id, title: title, isCompleted: !isCompleted)
+    }
 }
+
+/*
+With this approach, we have 2 option like these:
+1. ItemModel(title: , isCompleted: ) -> used for when create a new Item, because it will generate new ID
+2. ItemModel(id: , title: , isCompleted:) -> used for update existing item without change the ID or create new ID
+ 
+ Why?, Because when create new item it generate new ID, when update we need called the ItemModel to change the title or the isCompleted status, but that case automatically generate new other ID. So its like duplicate but different ID, hope this clearly.
+*/

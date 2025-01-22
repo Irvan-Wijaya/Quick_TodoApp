@@ -7,6 +7,9 @@ struct AddView: View {
     
     // by using presentationMode, basically tell it to go back one in view hierarchy
     @Environment(\.presentationMode) var presentationMode
+    
+    @State var alertTitle: String = ""
+    @State var showAlert: Bool = false
 
     var body: some View {
         ScrollView {
@@ -34,11 +37,27 @@ struct AddView: View {
             .padding(14)
         }
         .navigationTitle("Add Todo 🖋️")
+        .alert(isPresented: $showAlert, content: getAlert)
     }
     
     func saveButtonPressed() {
-        listViewModel.addItem(title: textFieldTodo)
-        presentationMode.wrappedValue.dismiss()
+        if validateInput(){
+            listViewModel.addItem(title: textFieldTodo)
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func validateInput() -> Bool {
+        if textFieldTodo.count < 3 {
+            alertTitle = "Your new todo item must at least 3 characters 🙃"
+            showAlert.toggle()
+            return false
+        }
+        return true
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(title: Text(alertTitle))
     }
 }
 
