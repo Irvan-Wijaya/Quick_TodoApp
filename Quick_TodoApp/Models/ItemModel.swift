@@ -1,7 +1,8 @@
 import Foundation
 
 //  Identifiable -> protocol is used to uniquely identify objects within a collection, such as an array of items in a SwiftUI list. Helps SwiftUI track changes and efficiently update views when data changes.
-// because its immutable struct, we can only change through updateCompletion func, this approach to prevent accident with database
+//  Codable -> for encode and decode mechanism
+//  because its immutable struct, we can only change through updateCompletion func, this approach to prevent accident with database
 struct ItemModel: Identifiable, Codable {
     let id: String
     let title: String
