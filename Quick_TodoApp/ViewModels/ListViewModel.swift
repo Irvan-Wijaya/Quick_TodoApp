@@ -7,20 +7,36 @@ import Foundation
 */
 
 class ListViewModel: ObservableObject {
-    @Published var items: [ItemModel] = []
+    @Published var items: [ItemModel] = [] {
+        // anytime we change the items array this function will get called | this approach more efficient than add saveItem to each function (CRUD)
+        didSet{
+            saveItem()
+        }
+    }
+    
+    let itemsKey: String = "items_list"
     
     init () {
         getItem()
     }
     
     func getItem() {
-        let newItem = [
-            ItemModel(title: "Learn SwiftUI", isCompleted: false),
-            ItemModel(title: "Learn Swift", isCompleted: true),
-            ItemModel(title: "Learn MVVM", isCompleted: false)
-        ]
-        // if multiple items, using contentOf
-        items.append(contentsOf: newItem)
+//        let newItem = [
+//            ItemModel(title: "Learn SwiftUI", isCompleted: false),
+//            ItemModel(title: "Learn Swift", isCompleted: true),
+//        ]
+//        items.append(contentsOf: newItem) -> if multiple items, using contentOf
+        
+//        guard let data = UserDefaults.standard.data(forKey: itemsKey) else { return }
+//        guard let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data) else { return }
+        
+        // for more readbility
+        guard
+            let data = UserDefaults.standard.data(forKey: itemsKey),
+            let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data) // -> decode to what from where
+        else { return }
+        
+        self.items = savedItems
     }
     
     func deleteItem (indexSet: IndexSet) {
@@ -40,6 +56,12 @@ class ListViewModel: ObservableObject {
         // $0 represents each element in the items array that is being checked.
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item.updateCompletion()
+        }
+    }
+    
+    func saveItem () {
+        if let encodeData = try? JSONEncoder().encode(items) {
+            UserDefaults.standard.set(encodeData, forKey: itemsKey) // -> encode what to where, (jsonKey)
         }
     }
 }
