@@ -3,7 +3,7 @@ import Foundation
 /**
 1. ObservableObject -> Jika ada perubahan pada data di dalam objek yang menerapkan ObservableObject, tampilan yang bergantung padanya akan secara otomatis diperbarui.
 2. @Published -> property wrapper yang digunakan di dalam objek ObservableObject untuk memberi tahu tampilan jika nilai properti terjadi perubahan maka perbarui tampilannya.
-3. EnvirontmentObject -> property wrapper di SwiftUI yang digunakan menyebarkan ObservableObject ke seluruh tampilan aplikasi secara otomatis tanpa perlu meneruskan secara manual.
+3. @EnvirontmentObject -> property wrapper di SwiftUI yang digunakan menyebarkan ObservableObject ke seluruh tampilan aplikasi secara otomatis tanpa perlu meneruskan secara manual.
 */
 
 class ListViewModel: ObservableObject {
@@ -21,14 +21,8 @@ class ListViewModel: ObservableObject {
     }
     
     func getItem() {
-//        let newItem = [
-//            ItemModel(title: "Learn SwiftUI", isCompleted: false),
-//            ItemModel(title: "Learn Swift", isCompleted: true),
-//        ]
-//        items.append(contentsOf: newItem) -> if multiple items, using contentOf
-        
-//        guard let data = UserDefaults.standard.data(forKey: itemsKey) else { return }
-//        guard let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data) else { return }
+//  guard let data = UserDefaults.standard.data(forKey: itemsKey) else { return }
+//  guard let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data) else { return }
         
         // for more readbility
         guard
