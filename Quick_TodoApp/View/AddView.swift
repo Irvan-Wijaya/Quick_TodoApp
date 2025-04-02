@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddView: View {
-    // Ketika nilai @State berubah, SwiftUI akan otomatis merender ulang bagian view yang terkait dengan nilai tersebut.
+    // When value @State changed, SwiftUI will automatically akan otomatis re-render the part of the view associated with that value.
     @State var textFieldTodo: String = ""
     @EnvironmentObject var listViewModel: ListViewModel
     
