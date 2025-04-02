@@ -1,7 +1,7 @@
 
 # Quick - Simple Todo App ✓
 
-"Quick is a simple iOS application built using SwiftUI, UserDefautls, and MVVM architecture. This project is made to understand the basic concepts of iOS development.
+Quick is a simple iOS application built using SwiftUI, UserDefautls, and MVVM architecture. This project is made to understand the basic concepts of iOS development.
 
 
 
